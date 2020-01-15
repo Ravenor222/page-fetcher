@@ -1,11 +1,13 @@
+let prompt = require("prompt-sync")();
 const args = process.argv.splice(2);
 const fs = require('fs');
 const request = require('request');
-const readline = require('readline')
-const rl = readline.createInterface({
-     input: process.stdin,
-     output: process.stdout
- });
+
+//const readline = require('readline')      //
+// const rl = readline.createInterface({    //
+//      input: process.stdin,               //
+//      output: process.stdout              //
+//  });                                     //
 
 
 
@@ -13,12 +15,17 @@ const rl = readline.createInterface({
 //File needs to know it exists, and reprompt for an overwrite
 //prompt?
     console.log(error);
-fs.stat((args[1]), (error, stat) => {
+    //
+    fs.stat(("index.html"), (error, stat) => {
         if (error) { return console.log(error)};
+        //
+        ///This is the amount of Bytes///
         const stats = fs.statSync(args[1]);
         let fileSizeInBytes = stats["size"];
-        const indexFile = (args[1]).toString();
-        
+        //
+        const indexFile = (args[1]);
+        console.log(args[1]);
+        //
           //  console.log(`Downloaded and saved ${fileSizeInBytes} bytes to ${args[1]}`);
         //                                                                          //
         //                                                                          //
@@ -26,19 +33,17 @@ fs.stat((args[1]), (error, stat) => {
         if(error == null) {
             //this means the file exist
             //do you want to overwrite?
-            rl.question("The file already exists, do you want to overwrite? Y/N", (yesno) => {
+            console.log("are you sure you want to overwrite? Y/N");
+            let yesno = prompt(">   ");
                 if(yesno === "y" || yesno === "Y") {
-                    fs.writeFile((indexFile, body,() => {
-                    }))
-                } else {
-                    console.log("byebye");
+                    fs.writeFile(('index.html', body,() => {
 
+                    }))
                 }
-            })
 
         } else if(error.code === 'ONOENT') {
-                //apparently this means file doesn't exist
-                console.log("doesnt exist");
+            //this means the file exists//
+            console.log("doesnt exist");
         } else {
             console.log("other error: ", error.code);
        

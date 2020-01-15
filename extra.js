@@ -9,10 +9,6 @@ const request = require('request');
 //console.log(args);
 
   request(args[0], (error, response, body) => {
-//File needs to know it exists, and reprompt for an overwrite
-//prompt?
-
-   
     
     fs.writeFile((args[1].toString()), body, () => {
       if(error) { return console.log(error)};
@@ -40,7 +36,6 @@ const request = require('request');
     })
     
   });
-
 
 //{flag: 'wx'} in FS write file , 
     //fs.writeFile(args[1], (file, body,{options}) => {}
